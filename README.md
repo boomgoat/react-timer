@@ -2,6 +2,10 @@
 
 A simple timer app with variable speeds
 
+### Deployed on
+
+https://timer-check.netlify.app/
+
 ## Available Scripts
 
 In the project directory, you can run:
