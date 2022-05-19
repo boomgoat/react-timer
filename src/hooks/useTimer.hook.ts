@@ -11,7 +11,12 @@ export const useTimer = () => {
   const [speed, setSpeed] = useState<number>(1);
 
   useEffect(() => {
-    if (count.minutes === 0 && count.seconds === 0) {
+    if (
+      !isComplete &&
+      hasStartedTimer &&
+      count.minutes === 0 &&
+      count.seconds === 0
+    ) {
       setIsComplete(true);
       setHasStartedTimer(false);
     } else if (!isComplete && hasStartedTimer) {
@@ -44,6 +49,7 @@ export const useTimer = () => {
   };
 
   const handleStart = () => {
+    setCount({ minutes: 0, seconds: 0 });
     setCount({ minutes: parseInt(timerValue), seconds: 0 });
     setHasStartedTimer(true);
     setIsComplete(false);

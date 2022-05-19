@@ -18,7 +18,7 @@ const Timer = () => {
 
   return (
     <>
-      <div className="flex justify-center mb-4">
+      <div className="flex justify-center mb-4" key={timerValue}>
         <label
           data-testid="timer-input-label"
           htmlFor="timer-input"
@@ -30,9 +30,15 @@ const Timer = () => {
           data-testid="timer-input"
           type="number"
           id="timer-input"
+          disabled={hasStartedTimer && !isComplete}
           max={99}
           required
-          className="text-black border-2 border-black px-3 w-40"
+          className={
+            "border-2  px-3 w-40 " +
+            (hasStartedTimer && !isComplete
+              ? " text-gray-400 border-gray-400"
+              : "text-black border-black")
+          }
           value={timerValue}
           onChange={(e) => handleChange(e)}
         />
@@ -45,7 +51,8 @@ const Timer = () => {
         />
       </div>
 
-      {count.minutes * 60 + count.seconds <= (parseInt(timerValue) * 60) / 2 ? (
+      {hasStartedTimer &&
+      count.minutes * 60 + count.seconds <= (parseInt(timerValue) * 60) / 2 ? (
         <h4 data-testid="halftime-marker" className="pt-12 italic">
           More than halfway there!
         </h4>
@@ -61,7 +68,10 @@ const Timer = () => {
             data-testid="clock"
             className={
               "font-black text-9xl p-12 " +
-              (count.minutes === 0 && count.seconds <= 10 && !isComplete
+              (count.minutes === 0 &&
+              count.seconds <= 10 &&
+              !isComplete &&
+              hasStartedTimer
                 ? "animate-flicker"
                 : "text-black")
             }
